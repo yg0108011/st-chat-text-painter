@@ -1,0 +1,53 @@
+<div id="ctp-settings" class="ctp">
+    <div class="ctp-head">
+        <div class="ctp-head-title">聊天文字调色</div>
+        <div class="ctp-head-sub">仅作用于聊天消息正文 · 主要 / 斜体 / 引用（含对话）独立调色</div>
+        <div class="ctp-head-actions">
+            <label class="ctp-master">
+                <input type="checkbox" id="ctp-enabled">
+                <span>启用插件</span>
+            </label>
+            <button id="ctp-repaint" type="button">重绘当前聊天</button>
+        </div>
+    </div>
+    {{#each cats}}
+    <div class="ctp-card" data-cat="{{key}}">
+        <div class="ctp-card-head">
+            <div class="ctp-card-title">{{label}}</div>
+            <select class="ctp-ctl" data-key="mode">
+                <option value="follow">跟随酒馆</option>
+                <option value="solid">纯色</option>
+                <option value="gradient">渐变</option>
+            </select>
+        </div>
+        <div class="ctp-rows">
+            <div class="ctp-row ctp-solid-row">
+                <span class="ctp-row-label">纯色</span>
+                <input type="color" class="ctp-ctl ctp-color" data-key="solid">
+                <input type="text" class="ctp-ctl ctp-hex" data-key="solid" maxlength="7" spellcheck="false">
+            </div>
+            <div class="ctp-row ctp-grad-row">
+                <span class="ctp-row-label">起色</span>
+                <input type="color" class="ctp-ctl ctp-color" data-key="c1">
+                <span class="ctp-row-label">止色</span>
+                <input type="color" class="ctp-ctl ctp-color" data-key="c2">
+            </div>
+            <div class="ctp-row ctp-grad-row">
+                <span class="ctp-row-label">角度</span>
+                <input type="range" class="ctp-ctl ctp-angle" data-key="angle" min="0" max="360" step="1">
+                <input type="number" class="ctp-ctl ctp-angle-num" data-key="angle" min="0" max="360" step="1">
+            </div>
+            <div class="ctp-row ctp-grad-row ctp-glow-row">
+                <label class="ctp-switch">
+                    <input type="checkbox" class="ctp-ctl" data-key="glow">
+                    <span>光晕</span>
+                </label>
+                <span class="ctp-row-label">强度</span>
+                <input type="range" class="ctp-ctl ctp-strength" data-key="glowStrength" min="0" max="100" step="1">
+                <input type="number" class="ctp-ctl ctp-strength-num" data-key="glowStrength" min="0" max="100" step="1">
+            </div>
+        </div>
+        <div class="ctp-preview-box"><span class="ctp-preview" data-cat="{{key}}">山有木兮木有枝，心悦君兮君不知</span></div>
+    </div>
+    {{/each}}
+</div>

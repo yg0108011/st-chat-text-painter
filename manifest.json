@@ -1,0 +1,12 @@
+{
+    "display_name": "聊天文字调色 Chat Text Painter",
+    "loading_order": 100,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "yg0108011",
+    "version": "1.0.0",
+    "homePage": "https://github.com/yg0108011/st-chat-text-painter",
+    "auto_update": false
+}

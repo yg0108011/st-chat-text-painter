@@ -1,0 +1,225 @@
+/* ==================================================================
+   st-chat-text-painter · 聊天文字调色
+   一、聊天正文运行时样式（仅作用于 #chat 消息）
+   二、扩展设置面板样式
+   ================================================================== */
+
+/* ---------- 一、聊天正文 ---------- */
+
+/* 运行时包裹 span 均为行内元素，不改变排版 */
+#chat .mes .mes_text .ctp-run {
+    display: inline;
+}
+
+/* 渐变（光晕关闭）：CSS 渐变裁切文字，最平滑轻量 */
+#chat .mes .mes_text .ctp-grad {
+    background-image: linear-gradient(var(--ctp-ang, 90deg), var(--ctp-c1, #7fc1ff), var(--ctp-c2, #ffd27f));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+}
+
+/* 逐字 / 垂直 / 引用纯色：颜色与光晕走 CSS 变量 + 高特异性 !important，
+   防御主题自带 !important 文字阴影与 -webkit-text-fill-color 的覆盖 */
+#chat .mes .mes_text .ctp-ch,
+#chat .mes .mes_text .ctp-vert,
+#chat .mes .mes_text .ctp-quote-solid {
+    color: var(--ctp-color, inherit) !important;
+    -webkit-text-fill-color: var(--ctp-color, currentColor) !important;
+}
+#chat .mes .mes_text .ctp-ch,
+#chat .mes .mes_text .ctp-vert {
+    text-shadow: var(--ctp-halo, none) !important;
+}
+
+/* 离屏光晕门控：消息离开视口边（含 600px 余量）时关闭逐字光晕，
+   屏内观感不受影响、滚动更流畅；回到视口自动恢复 */
+#chat .mes .mes_text.ctp-out .ctp-ch,
+#chat .mes .mes_text.ctp-out .ctp-vert {
+    text-shadow: none !important;
+}
+
+/* ---------- 二、设置面板（毛玻璃 + 渐变光感，贴合 Glimmer / Moonlit 风格） ---------- */
+
+#ctp-settings.ctp {
+    padding: 4px 2px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--SmartThemeBodyColor, #dcdcdc);
+    font-size: 13px;
+}
+
+#ctp-settings .ctp-head {
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(127, 193, 255, 0.13), rgba(255, 210, 127, 0.10));
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+}
+
+#ctp-settings .ctp-head-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #7fc1ff, #ffd27f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 14px rgba(127, 193, 255, 0.28);
+}
+
+#ctp-settings .ctp-head-sub {
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.62;
+}
+
+#ctp-settings .ctp-head-actions {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+#ctp-settings .ctp-master {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#ctp-settings button#ctp-repaint {
+    background: rgba(127, 193, 255, 0.14);
+    border: 1px solid rgba(127, 193, 255, 0.35);
+    color: #aed7ff;
+    padding: 6px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+#ctp-settings button#ctp-repaint:hover {
+    background: rgba(127, 193, 255, 0.22);
+    box-shadow: 0 0 12px rgba(127, 193, 255, 0.35);
+}
+
+#ctp-settings .ctp-card {
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+#ctp-settings .ctp-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+#ctp-settings .ctp-card-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #9cd0ff, #ffe1a8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#ctp-settings select.ctp-ctl {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    color: inherit;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+#ctp-settings .ctp-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+#ctp-settings .ctp-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#ctp-settings .ctp-row-label {
+    font-size: 12px;
+    opacity: 0.7;
+    min-width: 30px;
+}
+
+#ctp-settings input[type="color"].ctp-color {
+    width: 36px;
+    height: 26px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    cursor: pointer;
+}
+
+#ctp-settings .ctp-hex,
+#ctp-settings .ctp-angle-num,
+#ctp-settings .ctp-strength-num {
+    width: 84px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: inherit;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+#ctp-settings input[type="range"].ctp-angle,
+#ctp-settings input[type="range"].ctp-strength {
+    flex: 1;
+    min-width: 90px;
+    accent-color: #7fc1ff;
+}
+
+#ctp-settings .ctp-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 模式对应的行显隐 */
+#ctp-settings .ctp-card .ctp-solid-row { display: none; }
+#ctp-settings .ctp-card .ctp-grad-row { display: none; }
+#ctp-settings .ctp-card[data-mode="solid"] .ctp-solid-row { display: flex; }
+#ctp-settings .ctp-card[data-mode="gradient"] .ctp-grad-row { display: flex; }
+
+#ctp-settings .ctp-preview-box {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+}
+
+#ctp-settings .ctp-preview {
+    font-size: 13px;
+    line-height: 1.8;
+    display: block;
+}

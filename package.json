@@ -1,0 +1,8 @@
+{
+    "name": "st-chat-text-painter",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "node --test test/engine.test.mjs"
+    }
+}
